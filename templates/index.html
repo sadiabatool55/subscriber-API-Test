@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>API Test Runner</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        label { display: block; margin: 10px 0 5px; }
+        input { padding: 8px; width: 300px; }
+        button { padding: 10px 20px; margin-top: 15px; }
+        .error { color: red; }
+        .api-result { margin-top: 20px; padding: 15px; border: 1px solid #ccc; background: #f9f9f9; }
+        pre { background: #eee; padding: 10px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>API Test Runner</h1>
+
+    <form method="POST">
+        <label for="msisdn">MSISDN:</label>
+        <input type="text" id="msisdn" name="msisdn" value="{{ msisdn or '' }}" required />
+
+        <label for="pin">PIN:</label>
+        <input type="password" id="pin" name="pin" required />
+
+        <button type="submit">Run All APIs</button>
+    </form>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    {% if results %}
+        <h2>API Responses</h2>
+        {% for res in results %}
+            <div class="api-result">
+                <h3>{{ res.name }} (Status: {{ res.status_code }})</h3>
+                <pre>{{ res.response | tojson(indent=2) }}</pre>
+            </div>
+        {% endfor %}
+    {% endif %}
+</body>
+</html>
