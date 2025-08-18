@@ -5,7 +5,6 @@ app = Flask(__name__)
 
 CORPORATE_LOGIN_URL = "http://54.89.241.89:5000/login"
 
-# List all other APIs here (add more as you get)
 OTHER_APIS = [
     {
         "name": "MaToMA Inquiry",
