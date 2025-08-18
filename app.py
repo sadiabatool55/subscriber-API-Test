@@ -221,14 +221,14 @@ def index():
         if not x_hash:
             return render_template("index.html", error=f"X-Hash not found in login response: {login_data}")
 
-        # ✅ Update all API bodies to use the login MSISDN
+        #Update all API bodies to use the login MSISDN
         for api in OTHER_APIS:
             body = api.get("body", {})
             for key in body:
                 if key.lower() == "msisdn":  # only sender, not receiver
                     body[key] = msisdn
 
-                # ✅ Store TransactionReference from MaToMA Transfer
+                #Store TransactionReference from MaToMA Transfer
         transaction_reference_from_matoma = None
 
         # Call other APIs with X-Hash
@@ -245,7 +245,7 @@ def index():
                     if key.lower() == "msisdn":
                         body[key] = msisdn
 
-                # ✅ Inject the TransactionReference into Transaction Status Inquiry
+                #Inject the TransactionReference into Transaction Status Inquiry
                 if api["name"] == "Transaction Status Inquiry" and transaction_reference_from_matoma:
                     body["transactionID"] = transaction_reference_from_matoma
 
@@ -260,7 +260,7 @@ def index():
                 except:
                     resp_data = resp.text
 
-                # ✅ Capture TransactionReference from MaToMA Transfer response
+                #Capture TransactionReference from MaToMA Transfer response
                 if api["name"] == "MaToMA Transfer" and isinstance(resp_data, dict):
                     transaction_reference_from_matoma = (
                         resp_data.get("TransactionReference") or 
