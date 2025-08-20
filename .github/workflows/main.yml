@@ -3,7 +3,7 @@ name: API Test Runner CI/CD
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build-and-push:
